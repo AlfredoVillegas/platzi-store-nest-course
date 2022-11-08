@@ -1,6 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-
 import config from 'src/config';
 import { ProductsService } from 'src/products/services/products.service';
 import { Order } from '../entities/Order.entitiy';
@@ -25,6 +24,10 @@ export class UsersService {
     //private configS: ConfigService,
     @Inject(config.KEY) private configS: ConfigType<typeof config>,
   ) {}
+
+  async getPg() {
+    console.log('s');
+  }
 
   public findAll(): User[] {
     return this.users;
