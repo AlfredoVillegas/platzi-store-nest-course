@@ -1,5 +1,5 @@
 //import { PartialType } from '@nestjs/mapped-types';
-import { PartialType } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 import {
   IsNotEmpty,
@@ -12,20 +12,25 @@ import {
 export class CreateProductDTO {
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   readonly name: string;
   @IsNotEmpty()
   @IsString()
+  @ApiProperty()
   readonly description: string;
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
+  @ApiProperty()
   readonly price: number;
   @IsUrl()
   @IsNotEmpty()
+  @ApiProperty()
   readonly imageUrl: string;
   @IsNumber()
   @IsNotEmpty()
   @IsPositive()
+  @ApiProperty()
   readonly stock: number;
 }
 

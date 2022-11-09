@@ -43,7 +43,7 @@ export class ProductsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateProductDTO,
   ) {
-    return this.productService.updated(id, body);
+    return this.productService.update(id, body);
   }
 
   @Delete(':id')

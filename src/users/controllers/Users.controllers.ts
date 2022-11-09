@@ -32,6 +32,6 @@ export class UsersController {
   getOrders(@Param('id', ParseIntPipe) id: number) {
     //const { limit, offset } = queryParams;
     //return `limit: ${limit} --- offset: ${offset} `;
-    return this.usersService.getOrdersByUser(id);
+    return {}; //this.usersService.getOrdersByUser(id);
   }
 }
