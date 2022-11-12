@@ -10,11 +10,17 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from 'src/auth/models/roles.model';
 import { CreateProductDTO, UpdateProductDTO } from '../dtos/product.dto';
 import { ProductsService } from '../services/products.service';
 
+@UseGuards(JwtGuard, RolesGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
@@ -33,6 +39,7 @@ export class ProductsController {
     return this.productService.findOne(+productId);
   }
 
+  @Roles(Role.ADMIN)
   @Post()
   create(@Body() body: CreateProductDTO) {
     return this.productService.create(body);

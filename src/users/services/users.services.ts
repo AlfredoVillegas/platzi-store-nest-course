@@ -4,6 +4,7 @@ import config from 'src/config';
 import { ProductsService } from 'src/products/services/products.service';
 import { DeepPartial, Repository } from 'typeorm';
 import { User } from '../entities/User.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +19,11 @@ export class UsersService {
   }
 
   public async create(data: DeepPartial<User>): Promise<User> {
-    const user = this.userRepository.create(data);
+    const passwordHash = await bcrypt.hash(data.password, 10);
+    const user = this.userRepository.create({
+      ...data,
+      password: passwordHash,
+    });
     return await this.userRepository.save(user);
   }
 
@@ -29,6 +34,13 @@ export class UsersService {
   public async findOne(id: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) throw new NotFoundException(`User #${id} not found`);
+
+    return user;
+  }
+
+  public async findByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ email });
+    if (!user) throw new NotFoundException(`User #${email} not found`);
 
     return user;
   }

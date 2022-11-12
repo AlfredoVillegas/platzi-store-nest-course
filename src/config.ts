@@ -14,5 +14,6 @@ export default registerAs('config', () => {
       password: process.env.POSTGRES_PASSWORD,
     },
     apiKey: process.env.API_KEY,
+    secretKey: process.env.SECRET_KEY,
   };
 });
